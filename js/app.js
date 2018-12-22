@@ -47,6 +47,23 @@ class UI {
       this.balance.classList.add('showBlack');
     }
   }
+  // Submit Expense Form
+  submitExpenseForm() {
+    const expenseValue = this.expenseInput.value;
+    const amountValue = this.amountInput.value;
+    if (expenseValue === "" || amountValue === "" || amountValue < 0) {
+      this.expenseFeedback.classList.add('showItem');
+      this.expenseFeedback.innerHTML = `<p>Values cannot be empty or negative</p>`;
+      const self = this;
+      setTimeout(function () {
+        self.expenseFeedback.classList.remove('showItem');
+      }, 3000);
+    } else {
+      let amount = parseInt(amountValue);
+      this.expenseInput = "";
+      this.amountInput = "";
+    }
+  }
   // Total Expense
   totalExpense() {
     let total = 400;
@@ -71,6 +88,7 @@ function eventListenters() {
   // Expense Form Submit
   expenseForm.addEventListener('click', function (event) {
     event.preventDefault();
+    ui.submitExpenseForm();
   })
 
   // Expense List Submit
